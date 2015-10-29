@@ -165,6 +165,8 @@
 		AECF16221B0DE4DE00CC83B2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "robert.rochford@mapcoexpress.com";
 				TargetAttributes = {
