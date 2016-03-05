@@ -8,35 +8,35 @@ import UIKit
 import AVFoundation
 
 //Ashley's
-let BEACON_1_UUID = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
-let BEACON_1_MAJOR: CLBeaconMajorValue = 25707
-let BEACON_1_MINOR: CLBeaconMinorValue = 14226
+let BEACON_1_UUID = "D8D3B0B4-E21A-11E5-9730-9A79F06E9478"
+let BEACON_1_MAJOR: CLBeaconMajorValue = 1001
+let BEACON_1_MINOR: CLBeaconMinorValue = 100
 
 //Seaboard Green
-let BEACON_2_UUID = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
-let BEACON_2_MAJOR: CLBeaconMajorValue = 5257
-let BEACON_2_MINOR: CLBeaconMinorValue = 36182
+let BEACON_2_UUID = "D8D3B0B4-E21A-11E5-9730-9A79F06E9478"
+let BEACON_2_MAJOR: CLBeaconMajorValue = 2002
+let BEACON_2_MINOR: CLBeaconMinorValue = 200
 
 //Pump or Hans
-let BEACON_3_UUID = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
-let BEACON_3_MAJOR: CLBeaconMajorValue = 21214
-let BEACON_3_MINOR: CLBeaconMinorValue = 33375
+let BEACON_3_UUID = "D8D3B0B4-E21A-11E5-9730-9A79F06E9478"
+let BEACON_3_MAJOR: CLBeaconMajorValue = 3003
+let BEACON_3_MINOR: CLBeaconMinorValue = 300
 
 //Entrance
-let BEACON_4_UUID = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
-let BEACON_4_MAJOR: CLBeaconMajorValue = 61045
-let BEACON_4_MINOR: CLBeaconMinorValue = 16636
+let BEACON_4_UUID = "D8D3B0B4-E21A-11E5-9730-9A79F06E9478"
+let BEACON_4_MAJOR: CLBeaconMajorValue = 4004
+let BEACON_4_MINOR: CLBeaconMinorValue = 400
 
 //Break Room
-let BEACON_5_UUID = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
-let BEACON_5_MAJOR: CLBeaconMajorValue = 4543
-let BEACON_5_MINOR: CLBeaconMinorValue = 24404
+let BEACON_5_UUID = "D8D3B0B4-E21A-11E5-9730-9A79F06E9478"
+let BEACON_5_MAJOR: CLBeaconMajorValue = 5005
+let BEACON_5_MINOR: CLBeaconMinorValue = 500
 
 var sound = UILocalNotificationDefaultSoundName
 var hasAppStarted = false
 var audioPlayer = AVAudioPlayer()
 
-func isBeacon(beacon: CLBeacon, withUUID UUIDString: String, #major: CLBeaconMajorValue, #minor: CLBeaconMinorValue) -> Bool {
+func isBeacon(beacon: CLBeacon, withUUID UUIDString: String, major: CLBeaconMajorValue, minor: CLBeaconMinorValue) -> Bool {
     return beacon.proximityUUID.UUIDString == UUIDString && beacon.major.unsignedShortValue == major && beacon.minor.unsignedShortValue == minor
 }
 
@@ -62,7 +62,7 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
     let beaconRegion5 = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: BEACON_5_UUID)!, major: BEACON_5_MAJOR, minor: BEACON_5_MINOR, identifier: "beaconRegion5")
 
     //now we create a second beacon region for the whole office
-    let wholeBeaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D"), identifier: "SeaboardOffice")
+    let wholeBeaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")!, identifier: "SeaboardOffice")
     
     let notify = UILocalNotification()
     
@@ -113,15 +113,15 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
     @IBAction func showPromo(sender: AnyObject) {
         
          //self.checkCounter()
-        var promoAlert = UIAlertController(title: "Mapco Beacon Promo", message: "Buy One, Get One Free Hot Dogs. " +
+        let promoAlert = UIAlertController(title: "Mapco Beacon Promo", message: "Buy One, Get One Free Hot Dogs. " +
             "Take this to the cashier to redeem", preferredStyle: UIAlertControllerStyle.Alert)
        
-        promoAlert.addAction(UIAlertAction(title: "Redeem", style: .Cancel, handler: {(action: UIAlertAction!) in
+        promoAlert.addAction(UIAlertAction(title: "Redeem", style: .Cancel, handler: {(action: UIAlertAction) in
     
             //if currentTime - redeemTime > 10 then allow to redeem else don't allow
             
             self.currentTime = NSDate().timeIntervalSince1970
-            var timeDiffernce = self.currentTime - self.redeemTime
+            let timeDiffernce = self.currentTime - self.redeemTime
             let waitTimeToUnlock = timeDiffernce - 60.00
             
             if self.currentTime - self.redeemTime > 60{
@@ -142,8 +142,8 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
                 self.barcodeImage.image = UIImage(named: "realBarcode")
             NSLog("Successfully redeemed promo at currentTime" + String(stringInterpolationSegment: self.currentTime))}}))
         
-        promoAlert.addAction(UIAlertAction(title: "Not Now", style: .Default, handler: {(action: UIAlertAction!) in
-            println("Handle Cancel loAgic here")}))
+        promoAlert.addAction(UIAlertAction(title: "Not Now", style: .Default, handler: {(action: UIAlertAction) in
+            print("Handle Cancel loAgic here")}))
         
         self.presentViewController(promoAlert, animated: true, completion: nil)
         NSLog("Has attempted to redeem " + String(counter) + " today.")
@@ -239,7 +239,12 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
         super.viewDidLoad()
         var alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Applause", ofType: "wav")!)
         var error:NSError?
-        audioPlayer = AVAudioPlayer(contentsOfURL: alertSound, error: &error)
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOfURL: alertSound)
+        } catch var error1 as NSError {
+            error = error1
+            //audioPlayer = nil
+        }
         
         //set the beacon manager's delegate to self
         self.beaconManager.delegate = self
@@ -258,10 +263,10 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
         return true
     }
     
-    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
-        if(event.subtype == UIEventSubtype.MotionShake) {
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+        if(event!.subtype == UIEventSubtype.MotionShake) {
             audioPlayer.play()
-            var shakeAlert = UIAlertController(title: "You unlocked a free tank of fuel!", message: "Take this to the register to redeem for free fuel", preferredStyle: UIAlertControllerStyle.Alert)
+            let shakeAlert = UIAlertController(title: "You unlocked a free tank of fuel!", message: "Take this to the register to redeem for free fuel", preferredStyle: UIAlertControllerStyle.Alert)
             
             shakeAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             
