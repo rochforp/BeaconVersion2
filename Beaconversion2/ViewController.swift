@@ -7,30 +7,35 @@
 import UIKit
 import AVFoundation
 
-//Ashley's
+//Bonus
 let BEACON_1_UUID = "D8D3B0B4-E21A-11E5-9730-9A79F06E9478"
-let BEACON_1_MAJOR: CLBeaconMajorValue = 1001
-let BEACON_1_MINOR: CLBeaconMinorValue = 100
+let BEACON_1_MAJOR: CLBeaconMajorValue = 998
+let BEACON_1_MINOR: CLBeaconMinorValue = 1053
 
-//Seaboard Green
+//Video
 let BEACON_2_UUID = "D8D3B0B4-E21A-11E5-9730-9A79F06E9478"
-let BEACON_2_MAJOR: CLBeaconMajorValue = 2002
-let BEACON_2_MINOR: CLBeaconMinorValue = 200
+let BEACON_2_MAJOR: CLBeaconMajorValue = 998
+let BEACON_2_MINOR: CLBeaconMinorValue = 1027
 
-//Pump or Hans
+//Coupon
 let BEACON_3_UUID = "D8D3B0B4-E21A-11E5-9730-9A79F06E9478"
-let BEACON_3_MAJOR: CLBeaconMajorValue = 3003
-let BEACON_3_MINOR: CLBeaconMinorValue = 300
+let BEACON_3_MAJOR: CLBeaconMajorValue = 998
+let BEACON_3_MINOR: CLBeaconMinorValue = 1026
 
-//Entrance
+//Feedback
 let BEACON_4_UUID = "D8D3B0B4-E21A-11E5-9730-9A79F06E9478"
-let BEACON_4_MAJOR: CLBeaconMajorValue = 4004
-let BEACON_4_MINOR: CLBeaconMinorValue = 400
+let BEACON_4_MAJOR: CLBeaconMajorValue = 998
+let BEACON_4_MINOR: CLBeaconMinorValue = 1019
 
-//Break Room
+//Assistance
 let BEACON_5_UUID = "D8D3B0B4-E21A-11E5-9730-9A79F06E9478"
-let BEACON_5_MAJOR: CLBeaconMajorValue = 5005
-let BEACON_5_MINOR: CLBeaconMinorValue = 500
+let BEACON_5_MAJOR: CLBeaconMajorValue = 998
+let BEACON_5_MINOR: CLBeaconMinorValue = 1012
+
+//Choice
+let BEACON_6_UUID = "D8D3B0B4-E21A-11E5-9730-9A79F06E9478"
+let BEACON_6_MAJOR: CLBeaconMajorValue = 998
+let BEACON_6_MINOR: CLBeaconMinorValue = 1057
 
 var sound = UILocalNotificationDefaultSoundName
 var hasAppStarted = false
@@ -60,9 +65,10 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
     let beaconRegion3 = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: BEACON_3_UUID)!, major: BEACON_3_MAJOR, minor: BEACON_3_MINOR, identifier: "beaconRegion3")
     let beaconRegion4 = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: BEACON_4_UUID)!, major: BEACON_4_MAJOR, minor: BEACON_4_MINOR, identifier: "beaconRegion4")
     let beaconRegion5 = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: BEACON_5_UUID)!, major: BEACON_5_MAJOR, minor: BEACON_5_MINOR, identifier: "beaconRegion5")
+    let beaconRegion6 = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: BEACON_6_UUID)!, major: BEACON_6_MAJOR, minor: BEACON_6_MINOR, identifier: "beaconRegion6")
 
     //now we create a second beacon region for the whole office
-    let wholeBeaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")!, identifier: "SeaboardOffice")
+    let wholeBeaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: "D8D3B0B4-E21A-11E5-9730-9A79F06E9478")!, identifier: "SeaboardOffice")
     
     let notify = UILocalNotification()
     
@@ -172,52 +178,60 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
         if let nearestBeacon = beacons.first as? CLBeacon{
             if isBeacon(nearestBeacon, withUUID: BEACON_1_UUID, major: BEACON_1_MAJOR, minor: BEACON_1_MINOR) {
                 // beacon #1
-                self.label.text = "You're near Ashley's Snacks"
-                self.imageView.image = UIImage(named: "hotdog")
+                self.label.text = "You're near the Bonus"
+                self.imageView.image = UIImage(named: "special")
                 self.button1.enabled = false
                 self.button1.setTitle(" ", forState: UIControlState.Normal)
-                self.labelBottom.text = "Try an all beef hot dog today! Located over by the fountain drinks."
+                self.labelBottom.text = "This is the dell bonus region..."
                 self.barcodeImage.image = nil
             }
             else if isBeacon(nearestBeacon, withUUID: BEACON_2_UUID, major: BEACON_2_MAJOR, minor: BEACON_2_MINOR) {
                 // beacon #2
-                self.label.text = "Try an ice cold Coca-Cola!"
+                self.label.text = "take a look at the video"
                 self.imageView.image = UIImage(named: "coke")
                 self.button1.enabled = false
                 self.button1.setTitle(" ", forState: UIControlState.Normal)
-                self.labelBottom.text = "Two-for-one today on all coke products!"
+                self.labelBottom.text = "This is the dell video region... sorry for the coke"
                 self.barcodeImage.image = nil
             }
             else if isBeacon(nearestBeacon, withUUID: BEACON_3_UUID, major: BEACON_3_MAJOR, minor: BEACON_3_MINOR) {
                 // beacon #3
                 self.label.adjustsFontSizeToFitWidth = true
                 self.label.highlighted = true
-                self.label.text = "Come inside for a exclusive, free item!"
+                self.label.text = "Take a look at this coupon from dell"
                 self.imageView.image = UIImage(named: "pumpPromo")
-                self.labelBottom.text = "Thanks for fueling at Mapco! Enter the store to unlock the free promotion!"
+                self.labelBottom.text = "This is the dell coupon region"
                 self.button1.enabled = false
                 self.button1.setTitle(" ", forState: UIControlState.Normal)
                 self.barcodeImage.image = nil
             }
             else if isBeacon(nearestBeacon, withUUID: BEACON_4_UUID, major: BEACON_4_MAJOR, minor: BEACON_4_MINOR) {
                 // beacon #4
-                self.label.text = "Welcome to Mapco!"
+                self.label.text = "Thanks for vising Dell. Give us Feedback "
                 self.imageView.image = UIImage(named: "mapcoLogo")
-                self.labelBottom.text = "Thanks for stopping in Mapco Express #12345"
+                self.labelBottom.text = "Please give us Feedback"
                 self.button1.enabled = true
-                self.button1.setTitle("Special Beacon App Promo", forState: UIControlState.Normal)
+                self.button1.setTitle("Ignore... Special Beacon App Promo", forState: UIControlState.Normal)
             }
             else if isBeacon(nearestBeacon, withUUID: BEACON_5_UUID, major: BEACON_5_MAJOR, minor: BEACON_5_MINOR) {
                 // beacon #5
-                self.label.text = "You found the secret spot in this Mapco!"
+                self.label.text = "Dell Assistance"
                 self.imageView.image = UIImage(named: "mapcoBucket")
                 //self.redeemResponse.text = " "
                 self.button1.enabled = false
                 self.button1.setTitle(" ", forState: UIControlState.Normal)
-                self.labelBottom.text = "Shake the magic Mapco bucket to see what comes out!"
+                self.labelBottom.text = "Dell assitance region"
                 self.barcodeImage.image = nil
-                
             }
+            else if isBeacon(nearestBeacon, withUUID: BEACON_6_UUID, major: BEACON_6_MAJOR, minor: BEACON_6_MINOR) {
+                // beacon #6
+                self.label.text = "Dell Choice region"
+                self.imageView.image = UIImage(named: "hotdogPizza")
+                self.labelBottom.text = "Dell Choice region"
+                self.button1.enabled = true
+                self.button1.setTitle("Special Beacon App Promo", forState: UIControlState.Normal)
+            }
+            
             
         } else {
             // no beacons found
@@ -293,6 +307,7 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
         self.beaconManager.startRangingBeaconsInRegion(self.beaconRegion3)
         self.beaconManager.startRangingBeaconsInRegion(self.beaconRegion4)
         self.beaconManager.startRangingBeaconsInRegion(self.beaconRegion5)
+        self.beaconManager.startRangingBeaconsInRegion(self.beaconRegion6)
         
         //Starts ranging in our defined region titled wholeBeaconRegion above
         self.beaconManager.startRangingBeaconsInRegion(self.wholeBeaconRegion)
@@ -305,6 +320,7 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
         self.beaconManager.stopRangingBeaconsInRegion(self.beaconRegion3)
         self.beaconManager.stopRangingBeaconsInRegion(self.beaconRegion4)
         self.beaconManager.stopRangingBeaconsInRegion(self.beaconRegion5)
+        self.beaconManager.stopRangingBeaconsInRegion(self.beaconRegion6)
         
         //Stops ranging in our defined region
         self.beaconManager.stopRangingBeaconsInRegion(self.wholeBeaconRegion)

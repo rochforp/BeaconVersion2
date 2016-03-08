@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Beaconversion2
+//  Protoype for D
 //
 //  Robert Rochford 2015
 //
@@ -20,9 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     
     let eddystoneManager = ESTEddystoneManager()
     
-    let pumpBeaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: "D8D3B0B4-E21A-11E5-9730-9A79F06E9478")!, major: 1001, minor: 100, identifier: "pumpBeaconRegion")
+    let pumpBeaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: "D8D3B0B4-E21A-11E5-9730-9A79F06E9478")!, major: 998, minor: 1057, identifier: "pumpBeaconRegion")
     
-    let entranceBeaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")!, major: 61045, minor: 16636, identifier: "entranceBeaconRegion")
+    let entranceBeaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: "D8D3B0B4-E21A-11E5-9730-9A79F06E9478")!, major: 998, minor: 1026, identifier: "entranceBeaconRegion")
     
     let viewController = ViewController()
     
@@ -69,8 +69,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
             NSLog("didEnterPumpRegion, will record a pump visit")
             
             self.notification.alertBody =
-                "Welcome to Mapco Express on Mallory Lane in Nashville, TN! " +
-            "Please unlock your phone to see special offers from this Mapco store!"
+                "Welcome to the Dell Experince " +
+            "Please unlock your device to see special offers from this Dell Demo!"
             self.notification.soundName = UILocalNotificationDefaultSoundName
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
             startStoreMonitor(true)
@@ -100,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         
         if currentRegion == pumpBeaconRegion{
         NSLog("didExitPumpRegion, will automatically record a pump exit")
-        self.notification.alertBody = "You have left Mapco Express. " +
+        self.notification.alertBody = "You have left The Dell Demo " +
         "Thanks for visiting!"
         UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         }
