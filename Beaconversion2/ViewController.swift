@@ -119,7 +119,7 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
     @IBAction func showPromo(sender: AnyObject) {
         
          //self.checkCounter()
-        let promoAlert = UIAlertController(title: "Mapco Beacon Promo", message: "Buy One, Get One Free Hot Dogs. " +
+        let promoAlert = UIAlertController(title: "Dell Beacon Promo", message: "Buy One, Get One Free Laptops. " +
             "Take this to the cashier to redeem", preferredStyle: UIAlertControllerStyle.Alert)
        
         promoAlert.addAction(UIAlertAction(title: "Redeem", style: .Cancel, handler: {(action: UIAlertAction) in
@@ -149,7 +149,7 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
             NSLog("Successfully redeemed promo at currentTime" + String(stringInterpolationSegment: self.currentTime))}}))
         
         promoAlert.addAction(UIAlertAction(title: "Not Now", style: .Default, handler: {(action: UIAlertAction) in
-            print("Handle Cancel loAgic here")}))
+            print("Handle Cancel logic here")}))
         
         self.presentViewController(promoAlert, animated: true, completion: nil)
         NSLog("Has attempted to redeem " + String(counter) + " today.")
@@ -187,8 +187,8 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
             }
             else if isBeacon(nearestBeacon, withUUID: BEACON_2_UUID, major: BEACON_2_MAJOR, minor: BEACON_2_MINOR) {
                 // beacon #2
-                self.label.text = "take a look at the video"
-                self.imageView.image = UIImage(named: "coke")
+                self.label.text = "Take a look at the video"
+                self.imageView.image = UIImage(named: "video")
                 self.button1.enabled = false
                 self.button1.setTitle(" ", forState: UIControlState.Normal)
                 self.labelBottom.text = "This is the dell video region... sorry for the coke"
@@ -199,7 +199,7 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
                 self.label.adjustsFontSizeToFitWidth = true
                 self.label.highlighted = true
                 self.label.text = "Take a look at this coupon from dell"
-                self.imageView.image = UIImage(named: "pumpPromo")
+                self.imageView.image = UIImage(named: "coke")
                 self.labelBottom.text = "This is the dell coupon region"
                 self.button1.enabled = false
                 self.button1.setTitle(" ", forState: UIControlState.Normal)
@@ -208,15 +208,15 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
             else if isBeacon(nearestBeacon, withUUID: BEACON_4_UUID, major: BEACON_4_MAJOR, minor: BEACON_4_MINOR) {
                 // beacon #4
                 self.label.text = "Thanks for vising Dell. Give us Feedback "
-                self.imageView.image = UIImage(named: "mapcoLogo")
+                self.imageView.image = UIImage(named: "feedback")
                 self.labelBottom.text = "Please give us Feedback"
                 self.button1.enabled = true
-                self.button1.setTitle("Ignore... Special Beacon App Promo", forState: UIControlState.Normal)
+                //self.button1.setTitle("Ignore... Special Beacon App Promo", forState: UIControlState.Normal)
             }
             else if isBeacon(nearestBeacon, withUUID: BEACON_5_UUID, major: BEACON_5_MAJOR, minor: BEACON_5_MINOR) {
                 // beacon #5
                 self.label.text = "Dell Assistance"
-                self.imageView.image = UIImage(named: "mapcoBucket")
+                self.imageView.image = UIImage(named: "assistance")
                 //self.redeemResponse.text = " "
                 self.button1.enabled = false
                 self.button1.setTitle(" ", forState: UIControlState.Normal)
@@ -226,7 +226,7 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
             else if isBeacon(nearestBeacon, withUUID: BEACON_6_UUID, major: BEACON_6_MAJOR, minor: BEACON_6_MINOR) {
                 // beacon #6
                 self.label.text = "Dell Choice region"
-                self.imageView.image = UIImage(named: "hotdogPizza")
+                self.imageView.image = UIImage(named: "choice")
                 self.labelBottom.text = "Dell Choice region"
                 self.button1.enabled = true
                 self.button1.setTitle("Special Beacon App Promo", forState: UIControlState.Normal)
@@ -236,9 +236,9 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
         } else {
             // no beacons found
             self.label.text = "No beacons found in range."
-            self.imageView.image = UIImage(named: "MapcoSquareLogo")
+            self.imageView.image = UIImage(named: "dell")
             self.redeemResponse.text = " "
-            self.labelBottom.text = "Stop by any Mapco Express for exclusive, location-based discounts."
+            self.labelBottom.text = "Stop by any Dell location for exclusive, location-based discounts."
             self.button1.enabled = false
             self.barcodeImage.image = nil
         }
