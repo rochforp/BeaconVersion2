@@ -7,36 +7,41 @@
 import UIKit
 import AVFoundation
 
-//Ashley's
-let BEACON_1_UUID = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
-let BEACON_1_MAJOR: CLBeaconMajorValue = 25707
-let BEACON_1_MINOR: CLBeaconMinorValue = 14226
+//Bonus
+let BEACON_1_UUID = "D8D3B0B4-E21A-11E5-9730-9A79F06E9478"
+let BEACON_1_MAJOR: CLBeaconMajorValue = 998
+let BEACON_1_MINOR: CLBeaconMinorValue = 1053
 
-//Seaboard Green
-let BEACON_2_UUID = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
-let BEACON_2_MAJOR: CLBeaconMajorValue = 5257
-let BEACON_2_MINOR: CLBeaconMinorValue = 36182
+//Video
+let BEACON_2_UUID = "D8D3B0B4-E21A-11E5-9730-9A79F06E9478"
+let BEACON_2_MAJOR: CLBeaconMajorValue = 998
+let BEACON_2_MINOR: CLBeaconMinorValue = 1027
 
-//Pump or Hans
-let BEACON_3_UUID = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
-let BEACON_3_MAJOR: CLBeaconMajorValue = 21214
-let BEACON_3_MINOR: CLBeaconMinorValue = 33375
+//Coupon
+let BEACON_3_UUID = "D8D3B0B4-E21A-11E5-9730-9A79F06E9478"
+let BEACON_3_MAJOR: CLBeaconMajorValue = 998
+let BEACON_3_MINOR: CLBeaconMinorValue = 1026
 
-//Entrance
-let BEACON_4_UUID = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
-let BEACON_4_MAJOR: CLBeaconMajorValue = 61045
-let BEACON_4_MINOR: CLBeaconMinorValue = 16636
+//Feedback
+let BEACON_4_UUID = "D8D3B0B4-E21A-11E5-9730-9A79F06E9478"
+let BEACON_4_MAJOR: CLBeaconMajorValue = 998
+let BEACON_4_MINOR: CLBeaconMinorValue = 1019
 
-//Break Room
-let BEACON_5_UUID = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
-let BEACON_5_MAJOR: CLBeaconMajorValue = 4543
-let BEACON_5_MINOR: CLBeaconMinorValue = 24404
+//Assistance
+let BEACON_5_UUID = "D8D3B0B4-E21A-11E5-9730-9A79F06E9478"
+let BEACON_5_MAJOR: CLBeaconMajorValue = 998
+let BEACON_5_MINOR: CLBeaconMinorValue = 1012
+
+//Choice
+let BEACON_6_UUID = "D8D3B0B4-E21A-11E5-9730-9A79F06E9478"
+let BEACON_6_MAJOR: CLBeaconMajorValue = 998
+let BEACON_6_MINOR: CLBeaconMinorValue = 1057
 
 var sound = UILocalNotificationDefaultSoundName
 var hasAppStarted = false
 var audioPlayer = AVAudioPlayer()
 
-func isBeacon(beacon: CLBeacon, withUUID UUIDString: String, #major: CLBeaconMajorValue, #minor: CLBeaconMinorValue) -> Bool {
+func isBeacon(beacon: CLBeacon, withUUID UUIDString: String, major: CLBeaconMajorValue, minor: CLBeaconMinorValue) -> Bool {
     return beacon.proximityUUID.UUIDString == UUIDString && beacon.major.unsignedShortValue == major && beacon.minor.unsignedShortValue == minor
 }
 
@@ -60,9 +65,10 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
     let beaconRegion3 = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: BEACON_3_UUID)!, major: BEACON_3_MAJOR, minor: BEACON_3_MINOR, identifier: "beaconRegion3")
     let beaconRegion4 = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: BEACON_4_UUID)!, major: BEACON_4_MAJOR, minor: BEACON_4_MINOR, identifier: "beaconRegion4")
     let beaconRegion5 = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: BEACON_5_UUID)!, major: BEACON_5_MAJOR, minor: BEACON_5_MINOR, identifier: "beaconRegion5")
+    let beaconRegion6 = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: BEACON_6_UUID)!, major: BEACON_6_MAJOR, minor: BEACON_6_MINOR, identifier: "beaconRegion6")
 
     //now we create a second beacon region for the whole office
-    let wholeBeaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D"), identifier: "SeaboardOffice")
+    let wholeBeaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: "D8D3B0B4-E21A-11E5-9730-9A79F06E9478")!, identifier: "SeaboardOffice")
     
     let notify = UILocalNotification()
     
@@ -113,15 +119,15 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
     @IBAction func showPromo(sender: AnyObject) {
         
          //self.checkCounter()
-        var promoAlert = UIAlertController(title: "Mapco Beacon Promo", message: "Buy One, Get One Free Hot Dogs. " +
+        let promoAlert = UIAlertController(title: "Dell Beacon Promo", message: "Buy One, Get One Free Laptops. " +
             "Take this to the cashier to redeem", preferredStyle: UIAlertControllerStyle.Alert)
        
-        promoAlert.addAction(UIAlertAction(title: "Redeem", style: .Cancel, handler: {(action: UIAlertAction!) in
+        promoAlert.addAction(UIAlertAction(title: "Redeem", style: .Cancel, handler: {(action: UIAlertAction) in
     
             //if currentTime - redeemTime > 10 then allow to redeem else don't allow
             
             self.currentTime = NSDate().timeIntervalSince1970
-            var timeDiffernce = self.currentTime - self.redeemTime
+            let timeDiffernce = self.currentTime - self.redeemTime
             let waitTimeToUnlock = timeDiffernce - 60.00
             
             if self.currentTime - self.redeemTime > 60{
@@ -142,8 +148,8 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
                 self.barcodeImage.image = UIImage(named: "realBarcode")
             NSLog("Successfully redeemed promo at currentTime" + String(stringInterpolationSegment: self.currentTime))}}))
         
-        promoAlert.addAction(UIAlertAction(title: "Not Now", style: .Default, handler: {(action: UIAlertAction!) in
-            println("Handle Cancel loAgic here")}))
+        promoAlert.addAction(UIAlertAction(title: "Not Now", style: .Default, handler: {(action: UIAlertAction) in
+            print("Handle Cancel logic here")}))
         
         self.presentViewController(promoAlert, animated: true, completion: nil)
         NSLog("Has attempted to redeem " + String(counter) + " today.")
@@ -172,59 +178,67 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
         if let nearestBeacon = beacons.first as? CLBeacon{
             if isBeacon(nearestBeacon, withUUID: BEACON_1_UUID, major: BEACON_1_MAJOR, minor: BEACON_1_MINOR) {
                 // beacon #1
-                self.label.text = "You're near Ashley's Snacks"
-                self.imageView.image = UIImage(named: "hotdog")
+                self.label.text = "You're near the Bonus"
+                self.imageView.image = UIImage(named: "special")
                 self.button1.enabled = false
                 self.button1.setTitle(" ", forState: UIControlState.Normal)
-                self.labelBottom.text = "Try an all beef hot dog today! Located over by the fountain drinks."
+                self.labelBottom.text = "This is the dell bonus region..."
                 self.barcodeImage.image = nil
             }
             else if isBeacon(nearestBeacon, withUUID: BEACON_2_UUID, major: BEACON_2_MAJOR, minor: BEACON_2_MINOR) {
                 // beacon #2
-                self.label.text = "Try an ice cold Coca-Cola!"
-                self.imageView.image = UIImage(named: "coke")
+                self.label.text = "Take a look at the video"
+                self.imageView.image = UIImage(named: "video")
                 self.button1.enabled = false
                 self.button1.setTitle(" ", forState: UIControlState.Normal)
-                self.labelBottom.text = "Two-for-one today on all coke products!"
+                self.labelBottom.text = "This is the dell video region... sorry for the coke"
                 self.barcodeImage.image = nil
             }
             else if isBeacon(nearestBeacon, withUUID: BEACON_3_UUID, major: BEACON_3_MAJOR, minor: BEACON_3_MINOR) {
                 // beacon #3
                 self.label.adjustsFontSizeToFitWidth = true
                 self.label.highlighted = true
-                self.label.text = "Come inside for a exclusive, free item!"
-                self.imageView.image = UIImage(named: "pumpPromo")
-                self.labelBottom.text = "Thanks for fueling at Mapco! Enter the store to unlock the free promotion!"
+                self.label.text = "Take a look at this coupon from dell"
+                self.imageView.image = UIImage(named: "coke")
+                self.labelBottom.text = "This is the dell coupon region"
                 self.button1.enabled = false
                 self.button1.setTitle(" ", forState: UIControlState.Normal)
                 self.barcodeImage.image = nil
             }
             else if isBeacon(nearestBeacon, withUUID: BEACON_4_UUID, major: BEACON_4_MAJOR, minor: BEACON_4_MINOR) {
                 // beacon #4
-                self.label.text = "Welcome to Mapco!"
-                self.imageView.image = UIImage(named: "mapcoLogo")
-                self.labelBottom.text = "Thanks for stopping in Mapco Express #12345"
+                self.label.text = "Thanks for vising Dell. Give us Feedback "
+                self.imageView.image = UIImage(named: "feedback")
+                self.labelBottom.text = "Please give us Feedback"
                 self.button1.enabled = true
-                self.button1.setTitle("Special Beacon App Promo", forState: UIControlState.Normal)
+                //self.button1.setTitle("Ignore... Special Beacon App Promo", forState: UIControlState.Normal)
             }
             else if isBeacon(nearestBeacon, withUUID: BEACON_5_UUID, major: BEACON_5_MAJOR, minor: BEACON_5_MINOR) {
                 // beacon #5
-                self.label.text = "You found the secret spot in this Mapco!"
-                self.imageView.image = UIImage(named: "mapcoBucket")
+                self.label.text = "Dell Assistance"
+                self.imageView.image = UIImage(named: "assistance")
                 //self.redeemResponse.text = " "
                 self.button1.enabled = false
                 self.button1.setTitle(" ", forState: UIControlState.Normal)
-                self.labelBottom.text = "Shake the magic Mapco bucket to see what comes out!"
+                self.labelBottom.text = "Dell assitance region"
                 self.barcodeImage.image = nil
-                
             }
+            else if isBeacon(nearestBeacon, withUUID: BEACON_6_UUID, major: BEACON_6_MAJOR, minor: BEACON_6_MINOR) {
+                // beacon #6
+                self.label.text = "Dell Choice region"
+                self.imageView.image = UIImage(named: "choice")
+                self.labelBottom.text = "Dell Choice region"
+                self.button1.enabled = true
+                self.button1.setTitle("Special Beacon App Promo", forState: UIControlState.Normal)
+            }
+            
             
         } else {
             // no beacons found
             self.label.text = "No beacons found in range."
-            self.imageView.image = UIImage(named: "MapcoSquareLogo")
+            self.imageView.image = UIImage(named: "dell")
             self.redeemResponse.text = " "
-            self.labelBottom.text = "Stop by any Mapco Express for exclusive, location-based discounts."
+            self.labelBottom.text = "Stop by any Dell location for exclusive, location-based discounts."
             self.button1.enabled = false
             self.barcodeImage.image = nil
         }
@@ -239,7 +253,12 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
         super.viewDidLoad()
         var alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Applause", ofType: "wav")!)
         var error:NSError?
-        audioPlayer = AVAudioPlayer(contentsOfURL: alertSound, error: &error)
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOfURL: alertSound)
+        } catch var error1 as NSError {
+            error = error1
+            //audioPlayer = nil
+        }
         
         //set the beacon manager's delegate to self
         self.beaconManager.delegate = self
@@ -258,10 +277,10 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
         return true
     }
     
-    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
-        if(event.subtype == UIEventSubtype.MotionShake) {
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+        if(event!.subtype == UIEventSubtype.MotionShake) {
             audioPlayer.play()
-            var shakeAlert = UIAlertController(title: "You unlocked a free tank of fuel!", message: "Take this to the register to redeem for free fuel", preferredStyle: UIAlertControllerStyle.Alert)
+            let shakeAlert = UIAlertController(title: "You unlocked a free tank of fuel!", message: "Take this to the register to redeem for free fuel", preferredStyle: UIAlertControllerStyle.Alert)
             
             shakeAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             
@@ -288,6 +307,7 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
         self.beaconManager.startRangingBeaconsInRegion(self.beaconRegion3)
         self.beaconManager.startRangingBeaconsInRegion(self.beaconRegion4)
         self.beaconManager.startRangingBeaconsInRegion(self.beaconRegion5)
+        self.beaconManager.startRangingBeaconsInRegion(self.beaconRegion6)
         
         //Starts ranging in our defined region titled wholeBeaconRegion above
         self.beaconManager.startRangingBeaconsInRegion(self.wholeBeaconRegion)
@@ -300,6 +320,7 @@ class ViewController: UIViewController, ESTBeaconManagerDelegate {
         self.beaconManager.stopRangingBeaconsInRegion(self.beaconRegion3)
         self.beaconManager.stopRangingBeaconsInRegion(self.beaconRegion4)
         self.beaconManager.stopRangingBeaconsInRegion(self.beaconRegion5)
+        self.beaconManager.stopRangingBeaconsInRegion(self.beaconRegion6)
         
         //Stops ranging in our defined region
         self.beaconManager.stopRangingBeaconsInRegion(self.wholeBeaconRegion)

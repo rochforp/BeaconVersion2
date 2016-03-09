@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Beaconversion2
+//  Protoype for D
 //
 //  Robert Rochford 2015
 //
@@ -20,9 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     
     let eddystoneManager = ESTEddystoneManager()
     
-    let pumpBeaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D"), major: 21214, minor: 33375, identifier: "pumpBeaconRegion")!
+    let pumpBeaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: "D8D3B0B4-E21A-11E5-9730-9A79F06E9478")!, major: 998, minor: 1057, identifier: "pumpBeaconRegion")
     
-    let entranceBeaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D"), major: 61045, minor: 16636, identifier: "entranceBeaconRegion")!
+    let entranceBeaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: "D8D3B0B4-E21A-11E5-9730-9A79F06E9478")!, major: 998, minor: 1026, identifier: "entranceBeaconRegion")
     
     let viewController = ViewController()
     
@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         startPumpMonitor(true)
         
         UIApplication.sharedApplication().registerUserNotificationSettings(
-            UIUserNotificationSettings(forTypes: .Alert | .Sound | .Badge, categories: nil))
+            UIUserNotificationSettings(forTypes: [.Alert, .Sound, .Badge], categories: nil))
 
         // Override point for customization after application launch.
         return true
@@ -69,8 +69,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
             NSLog("didEnterPumpRegion, will record a pump visit")
             
             self.notification.alertBody =
-                "Welcome to Mapco Express on Mallory Lane in Nashville, TN! " +
-            "Please unlock your phone to see special offers from this Mapco store!"
+                "Welcome to the Dell Experince " +
+            "Please unlock your device to see special offers from this Dell Demo!"
             self.notification.soundName = UILocalNotificationDefaultSoundName
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
             startStoreMonitor(true)
@@ -100,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         
         if currentRegion == pumpBeaconRegion{
         NSLog("didExitPumpRegion, will automatically record a pump exit")
-        self.notification.alertBody = "You have left Mapco Express. " +
+        self.notification.alertBody = "You have left The Dell Demo " +
         "Thanks for visiting!"
         UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         }
@@ -118,7 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         stopStoreMonitor(true)
     }
     
-    func startPumpMonitor(Bool) -> Bool{
+    func startPumpMonitor(_: Bool) -> Bool{
         
         if true{
             self.beaconManager.startMonitoringForRegion(pumpBeaconRegion)
@@ -126,7 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         return false
     }
     
-    func startStoreMonitor(Bool) -> Bool{
+    func startStoreMonitor(_: Bool) -> Bool{
         
         if true{
             self.beaconManager.startMonitoringForRegion(entranceBeaconRegion)
@@ -134,7 +134,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         return false
     }
     
-    func stopStoreMonitor(Bool) -> Bool{
+    func stopStoreMonitor(_: Bool) -> Bool{
         if true{
             self.beaconManager.stopMonitoringForRegion(entranceBeaconRegion)
         }
@@ -166,7 +166,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.MapcoExpress.AirportApp" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as! NSURL
+        return urls[urls.count-1] 
         }()
     
 
